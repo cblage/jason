@@ -21,4 +21,4 @@ erl_crash.dump
 
 # Ignore benchmark output
 /bench/output
-/bench/snapshots
+/bench/snapshots.idea
