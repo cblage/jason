@@ -12,11 +12,12 @@ defmodule Jason.Mixfile do
       consolidate_protocols: Mix.env() != :test,
       deps: deps(),
       aliases: aliases(),
-      preferred_cli_env: ["bench.encode": :bench, "bench.decode": :bench, docs: :docs],
+      preferred_cli_env: ["bench.encode": :bench, "bench.decode": :bench, docs: :docs, coveralls: :test],
       dialyzer: dialyzer(),
       description: description(),
       package: package(),
-      docs: docs()
+      docs: docs(),
+      test_coverage: [tool: ExCoveralls],
     ]
   end
 
@@ -31,13 +32,15 @@ defmodule Jason.Mixfile do
       {:decimal, "~> 1.0", optional: true},
       {:benchee, "~> 0.8", only: :bench},
       {:benchee_html, "~> 0.1", only: :bench},
-      {:poison, "~> 3.0", only: :bench},
-      {:exjsx, "~> 4.0", only: :bench},
-      {:tiny, "~> 1.0", only: :bench},
-      {:jsone, "~> 1.4", only: :bench},
-      {:jiffy, "~> 0.14", only: :bench},
-      {:json, "~> 1.0", only: :bench},
+      {:poison, "~> 3.0", only: :bench, override: true},
+      {:exjsx, "~> 4.0", only: [:bench, :test], override: true},
+      {:tiny, "~> 1.0", only: :bench, override: true},
+      {:jsone, "~> 1.4", only: :bench, override: true},
+      {:jiffy, "~> 0.14", only: :bench, override: true},
+      {:jason, "~> 1.0", only: :bench, override: true},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.8", only: :test},
       {:ex_doc, "~> 0.18", only: :docs}
     ] ++ maybe_stream_data()
   end
